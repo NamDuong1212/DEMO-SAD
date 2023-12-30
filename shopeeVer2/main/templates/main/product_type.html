@@ -1,0 +1,75 @@
+{% extends "main/layouts/main.html" %}
+
+{% block content %}
+
+<div class = "py-3 bg-primary">
+
+    <div class = "container">
+        <a class = 'text-white' href = "{% url 'home' %}"> Home /</a>
+        <a class = 'text-white' href = "{% url 'product_type' %}"> Categories</a>
+    </div>
+
+</div>
+
+<style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card-body {
+        flex-grow: 1;
+    }
+
+    .category-image img {
+        max-height: 100%;
+        width: 100%;
+        object-fit: cover; /* Đảm bảo hình ảnh không bị méo khi thay đổi kích thước */
+    }
+    .prices {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .original-price {
+        text-decoration: line-through;
+    }
+</style>
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-12">
+
+            <h1> Categories </h1>
+            <div class="custom"></div>
+            <style>
+                .custom {
+                    height: 2px; 
+                    background-color: #333; 
+                    margin: 20px 0;
+                }
+            </style>
+            <div class = "row">
+            {% for item in category %}
+                <div class = "col-md-4">
+                    <div class = "card">
+                        <a href="{% url "product_type_view" item.slug %}">
+                        <div class = "card-body">
+                                <div class = "category-image">
+                                    <img src = "{{item.image.url}}" height="300px" width="150px" alt = "Category image" class = "w-100"/>
+                                </div>
+                                <h4 class = "text-center"> {{item.name}} </h4>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
